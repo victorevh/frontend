@@ -4,9 +4,7 @@ const getRecommendations = (
   formData = { selectedPreferences: [], selectedFeatures: [] },
   products
 ) => {
-  /**
-   * Crie aqui a lógica para retornar os produtos recomendados.
-   */
+  if (!products || products.length === 0) return [];
 };
 
 export default { getRecommendations };

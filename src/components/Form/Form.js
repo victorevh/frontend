@@ -31,7 +31,6 @@ function Form({ getRecommendations, setRecommendations }) {
       className="max-w-md mx-auto p-4 bg-white rounded-lg shadow-md"
       onSubmit={handleSubmit}
     > 
-      <FormError message={error} />
       <Preferences
         preferences={preferences}
         onPreferenceChange={(selected) =>
@@ -49,6 +48,7 @@ function Form({ getRecommendations, setRecommendations }) {
           handleChange('selectedRecommendationType', selected)
         }
       />
+      <FormError message={error} />
       <SubmitButton text="Obter recomendação" />
     </form>
   );

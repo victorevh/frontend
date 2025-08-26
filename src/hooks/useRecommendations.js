@@ -5,12 +5,17 @@ import recommendationService from '../services/recommendation/recommendation.ser
 
 function useRecommendations(products) {
   const [recommendations, setRecommendations] = useState([]);
-
+  const [loading, setLoading] = useState(false);
+  
   const getRecommendations = (formData) => {
-    return recommendationService.getRecommendations(formData, products);
+    setLoading(true);
+    const result = recommendationService.getRecommendations(formData, products);
+    setRecommendations(result);
+    setLoading(false);
+    return result;
   };
 
-  return { recommendations, getRecommendations, setRecommendations };
+  return { recommendations, getRecommendations, setRecommendations, loading };
 }
 
 export default useRecommendations;

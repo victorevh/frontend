@@ -1,5 +1,3 @@
-import { Product } from "../types.js";
-
 /**
  * Estratégia de recomendação de produto único.
  * Retorna apenas o último produto em caso de empate.

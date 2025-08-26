@@ -1,5 +1,3 @@
-import { Product, FormData } from './types.js';
-
 /**
  * Calcula o score de um produto com base nas preferências e funcionalidades escolhidas.
  * @param {Product} product - Produto a ser avaliado

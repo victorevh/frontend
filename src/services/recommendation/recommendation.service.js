@@ -2,7 +2,6 @@
 import { calculateScore } from './score.service.js';
 import { singleProductStrategy } from './strategies/singleProduct.strategy.js';
 import { multipleProductsStrategy } from './strategies/multipleProducts.strategy.js';
-import { Product, FormData } from './types.js';
 
 /**
  * Gera recomendações de produtos com base nos dados do formulário.
@@ -33,4 +32,6 @@ const getRecommendations = (formData, products = []) => {
   return strategyFn ? strategyFn(relevantProducts) : [];
 };
 
-export default { getRecommendations };
+const recommendationService = { getRecommendations };
+
+export default recommendationService;

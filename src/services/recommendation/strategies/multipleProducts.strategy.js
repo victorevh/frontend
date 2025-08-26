@@ -1,5 +1,3 @@
-import { Product } from "../types.js";
-
 /**
  * Estratégia de múltiplos produtos.
  * Retorna todos os relevantes, ordenados pelo ID.

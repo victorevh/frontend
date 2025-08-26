@@ -30,6 +30,12 @@ const getRecommendations = (
     ...product,
     score: calculateScore(product),
   }));
+
+  const relevantProducts = productsWithScores.filter(
+    (product) => product.score > 0
+  );
+
+  if (relevantProducts.length === 0) return [];
 };
 
 export default { getRecommendations };

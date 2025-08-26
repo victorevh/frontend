@@ -7,7 +7,7 @@ import { Product } from "../types.js";
  * @returns {Product[]} Lista com um único produto recomendado
  */
 export const singleProductStrategy = (products = []) => {
-  if (!products.length) return [];
+  if (!Array.isArray(products) || products.length === 0) return [];
 
   const maxScore = Math.max(...products.map((p) => p.score ?? 0));
   const candidates = products.filter((p) => p.score === maxScore);

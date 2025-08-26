@@ -6,9 +6,10 @@ import recommendationService from '../services/recommendation/recommendation.ser
 function useRecommendations(products) {
   const [recommendations, setRecommendations] = useState([]);
   const [loading, setLoading] = useState(false);
-  
-  const getRecommendations = (formData) => {
+  const getRecommendations = async (formData) => {
     setLoading(true);
+    // Simula tempo de carregamento
+    await new Promise(resolve => setTimeout(resolve, 150));
     const result = recommendationService.getRecommendations(formData, products);
     setRecommendations(result);
     setLoading(false);

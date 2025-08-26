@@ -26,7 +26,10 @@ const getRecommendations = (
     return score;
   };
 
-  console.log("score", calculateScore(products))
+  const productsWithScores = products.map((product) => ({
+    ...product,
+    score: calculateScore(product),
+  }));
 };
 
 export default { getRecommendations };

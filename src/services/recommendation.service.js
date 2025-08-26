@@ -36,6 +36,14 @@ const getRecommendations = (
   );
 
   if (relevantProducts.length === 0) return [];
+
+  if (selectedRecommendationType === 'SingleProduct') {
+    const maxScore = Math.max(...relevantProducts.map((p) => p.score));
+    const candidates = relevantProducts.filter((p) => p.score === maxScore);
+    const lastCandidate = candidates[candidates.length - 1];
+
+    return [lastCandidate];
+  }
 };
 
 export default { getRecommendations };

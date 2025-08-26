@@ -1,13 +1,11 @@
-import React, { useState } from 'react';
 import Form from './components/Form/Form';
 import RecommendationList from './components/RecommendationList/RecommendationList';
+import useRecommendations from './hooks/useRecommendations';
+import useProducts from './hooks/useProducts';
 
 function App() {
-  const [recommendations, setRecommendations ] = useState([])
-
-  /**
-   * Dadas atualizações no formulário, necessário atualizar a lista de recomendações
-   */
+  const { products } = useProducts();
+  const { recommendations, getRecommendations, setRecommendations } = useRecommendations(products);
 
   return (
     <div className="bg-gray-100 min-h-screen flex flex-col justify-center items-center">
@@ -19,7 +17,10 @@ function App() {
           </p>
         </div>
         <div>
-          <Form />
+          <Form
+            getRecommendations={getRecommendations}
+            setRecommendations={setRecommendations}
+          />
         </div>
         <div>
           <RecommendationList recommendations={recommendations} />

@@ -15,11 +15,8 @@ function Form({ getRecommendations, setRecommendations }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const dataRecommendations = getRecommendations(formData);
-
-    /**
-     * Defina aqui a lógica para atualizar as recomendações e passar para a lista de recomendações
-     */
+    const recommendedProducts = getRecommendations(formData);
+    setRecommendations(recommendedProducts);
   };
 
   return (

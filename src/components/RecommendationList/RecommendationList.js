@@ -1,4 +1,4 @@
-import React from 'react';
+import recommendationLinks from '../../constants/recommendationLinks';
 
 function RecommendationList({ recommendations, loading }) {
   return (
@@ -15,11 +15,21 @@ function RecommendationList({ recommendations, loading }) {
 
       {!loading && (
         <ul>
-          {recommendations.map((recommendation, index) => (
-            <li key={index} className="mb-2">
-              {recommendation.name}
-            </li>
-          ))}
+          {recommendations.map((recommendation, index) => {
+            const url = recommendationLinks[recommendation.name] || "#";
+            return (
+              <li key={index} className="mb-2">
+                <a
+                  href={url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-blue-600 hover:underline"
+                >
+                  {recommendation.name}
+                </a>
+              </li>
+            );
+          })}
         </ul>
       )}
     </div>

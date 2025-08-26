@@ -10,7 +10,7 @@ function Form({ getRecommendations, setRecommendations }) {
   const { formData, handleChange } = useForm({
     selectedPreferences: [],
     selectedFeatures: [],
-    selectedRecommendationType: 'SingleProduct',
+    selectedRecommendationType: '',
   });
 
   const handleSubmit = (e) => {

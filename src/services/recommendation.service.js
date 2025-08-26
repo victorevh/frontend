@@ -44,6 +44,10 @@ const getRecommendations = (
 
     return [lastCandidate];
   }
+
+  const relevantProductsSortedById = relevantProducts.sort((a, b) => a.id - b.id);
+  
+  return relevantProductsSortedById;
 };
 
 export default { getRecommendations };

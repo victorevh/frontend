@@ -5,7 +5,7 @@ import useProducts from './hooks/useProducts';
 
 function App() {
   const { products } = useProducts();
-  const { recommendations, getRecommendations, setRecommendations } = useRecommendations(products);
+  const { recommendations, getRecommendations, setRecommendations, loading } = useRecommendations(products);
 
   return (
     <div className="bg-gray-100 min-h-screen flex flex-col justify-center items-center">
@@ -23,7 +23,10 @@ function App() {
           />
         </div>
         <div>
-          <RecommendationList recommendations={recommendations} />
+          <RecommendationList 
+            recommendations={recommendations}
+            loading={loading}
+          />
         </div>
       </div>
     </div>

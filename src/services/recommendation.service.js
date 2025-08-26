@@ -1,12 +1,12 @@
 // getRecommendations.js
 
 const getRecommendations = (
-  formData = { selectedPreferences: [], selectedFeatures: [] },
+  formData = { selectedPreferences: [], selectedFeatures: [], selectedRecommendationType: 'SingleProduct' },
   products = []
 ) => {
   if (!products || products.length === 0) return [];
 
-  const { selectedPreferences = [], selectedFeatures = [] } = formData;
+  const { selectedPreferences = [], selectedFeatures = [], selectedRecommendationType } = formData;
 
   const calculateScore = (product) => {
     let score = 0;

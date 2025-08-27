@@ -1,36 +1,36 @@
 // Form.js
 
-import React, { useEffect } from 'react';
 import { Preferences, Features, RecommendationType } from './Fields';
 import { SubmitButton } from './SubmitButton';
 import useProducts from '../../hooks/useProducts';
 import useForm from '../../hooks/useForm';
-import useRecommendations from '../../hooks/useRecommendations';
+import FormError from '../FormError/FormError';
+import useFormError from '../../hooks/useErrorForm';
 
-function Form() {
-  const { preferences, features, products } = useProducts();
+function Form({ getRecommendations, setRecommendations }) {
+  const { preferences, features } = useProducts();
   const { formData, handleChange } = useForm({
     selectedPreferences: [],
     selectedFeatures: [],
     selectedRecommendationType: '',
   });
 
-  const { getRecommendations, recommendations } = useRecommendations(products);
+  const { error, validateForm, clearError } = useFormError();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const dataRecommendations = getRecommendations(formData);
+    if (!validateForm(formData)) return;
 
-    /**
-     * Defina aqui a lógica para atualizar as recomendações e passar para a lista de recomendações
-     */
+    clearError();
+    const recommendedProducts = getRecommendations(formData);
+    setRecommendations(recommendedProducts);
   };
 
   return (
     <form
       className="max-w-md mx-auto p-4 bg-white rounded-lg shadow-md"
       onSubmit={handleSubmit}
-    >
+    > 
       <Preferences
         preferences={preferences}
         onPreferenceChange={(selected) =>
@@ -48,6 +48,7 @@ function Form() {
           handleChange('selectedRecommendationType', selected)
         }
       />
+      <FormError message={error} />
       <SubmitButton text="Obter recomendação" />
     </form>
   );

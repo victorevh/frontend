@@ -7,6 +7,7 @@
     "@testing-library/react": "^13.0.0",
     "@testing-library/user-event": "^13.2.1",
     "autoprefixer": "^10.4.17",
+    "axios": "^1.11.0",
     "postcss": "^8.4.34",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -16,6 +17,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
+    "dev": "cross-env REACT_APP_USE_MOCK=true react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
@@ -41,6 +43,7 @@
     ]
   },
   "devDependencies": {
+    "cross-env": "^10.0.0",
     "eslint": "^8.56.0",
     "eslint-plugin-react": "^7.33.2"
   }

@@ -33,6 +33,8 @@ O projeto possui dois scripts principais de execução:
 
 - Executa os testes unitários
 
+## Demonstração
+![demo](./docs/demo.gif)
 
 ## Algoritmo de Recomendação
 

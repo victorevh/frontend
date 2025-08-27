@@ -1,70 +1,105 @@
-# Getting Started with Create React App
+# Recomendador de Produtos RD Station - Frontend
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Este projeto é a interface front-end de um **Recomendador de Produtos RD Station**, desenvolvido em React com Tailwind CSS. O objetivo é permitir que usuários selecionem preferências e funcionalidades desejadas e recebam recomendações personalizadas de produtos RD Station.
 
-## Available Scripts
+## Versão do Node.js
 
-In the project directory, you can run:
+Este projeto requer Node.js versão 18.3 ou superior.
+
+## Como Executar
+
+1. Clone o repositório: `git clone git@github.com:victorevh/frontend.git`
+2. Instale as dependências: `yarn install` 
+3. Inicie a aplicação com mock (desenvolvimento isolado): `yarn dev`
+4. Inicie integrado à API real: `yarn start`
+
+## Scripts
+
+O projeto possui dois scripts principais de execução:
+
+### `yarn dev`
+- Inicia o front-end usando mock local (mocks/mockProducts.js) para desenvolvimento isolado.
+
+- O cross-env foi adicionao como dev dependecy para garantir funcionamento multiplataforma (Windows, Linux, Mac).
+
+> ⚠️ O script dev define REACT_APP_USE_MOCK=true usando cross-env, que permite ao front-end consumir os dados do mock sem alterar a lógica de produção
 
 ### `yarn start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- Inicia o front-end **coletando dados do endpoint real** (`http://localhost:3001/products`).
+- Use este comando para integrar com a API real.
 
 ### `yarn test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- Executa os testes unitários
 
-### `yarn build`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Algoritmo de Recomendação
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+> A geração da recomendação é orquestrada em `recommendation.service.js` onde todas as etapas mencionadas abaixo são executadas
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+1. Cálculo de score:
 
-### `yarn eject`
+    - Cada produto recebe um score baseado em quantas preferências e features do formulário ele atende. 
+    - Está implementado em `score.service.js`.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+2. Mapeamento e filtragem de produtos relevantes:
+    
+    - O score é atribuido ao produto através do map
+    - Produtos com score > 0 são considerados relevantes.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+3. Estratégias de recomendação:
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+    - **SingleProduct**: Retorna apenas o produto com maior score. Em caso de empate, retorna o último produto.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+    - **MultipleProducts**: Retorna todos os produtos relevantes ordenados pelo ID.
 
-## Learn More
+## Estrutura do projeto
+```
+src/
+├─ components/
+│ ├─ Form/ # Componente do formulário
+│ ├─ FormError/ # Componente de erro reutilizável
+│ ├─ RecommendationList/ # Lista de recomendações com links
+| └─ shared/ # Componente de checkbox
+├─ constants/
+| └─ recommendationLinks.js/ # Links dos produtos recomendados
+├─ hooks/
+| ├─ useErrorForm.js # Gerenciamento de erros
+| ├─ useForm.js # Gerenciamento do formulário
+│ ├─ useProducts.js # Gerenciamento para produtos
+│ └─ useRecommendations.js# Gerenciamento das recomendações/loading
+│ └─ mockProducts.js # Produtos mockados para desenvolvimento isolado
+├─ services/
+│ ├─ recommendation/
+| | ├─ strategies
+| | | ├─ multipleProducts.strategy.js # Recomendação múltipla
+| | | ├─ multipleProducts.strategy.test.js # Teste unitário
+| | | ├─ singleProduct.strategy.js# Recomendação única
+| | | └─ singleProduct.strategy.test.js # Teste unitário
+│ | ├─ recommendation.service.js # Orquestra lógica de recomendação
+│ | ├─ recommendation.service.test.js # Teste unitário
+│ | ├─ score.service.js # Incrementa pontuação
+│ | └─ score.service.js # Teste unitário
+│ └─ product.service.js # Define endpoint do produto
+└─ App.js # Raiz da aplicação
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Boas práticas implementadas
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- Modularização de hooks e serviços.
+- Componentes reutilizáveis e desacoplados.
+- Mensagens de erro e loading consistentes.
+- Responsividade e usabilidade em múltiplos dispositivos.
+- Testes unitários cobrindo cálculo de score e estratégias de recomendação.
+- URLs de produtos centralizadas para manutenção fácil.
 
-### Code Splitting
+## 📄 Licença
+Este projeto está licenciado sob a licença MIT - veja o arquivo [LICENSE](LICENSE) para detalhes.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## Sobre o editor
 
-### Analyzing the Bundle Size
+**Victor Santos**  
+[LinkedIn](https://www.linkedin.com/in/victor-oliveira-santos-b10bb81ab/) · [Email](mailto:victorevh@gmail.com)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+---
